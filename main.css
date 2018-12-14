@@ -1,0 +1,50 @@
+.board-wrapper {
+  padding: 100px;
+}
+
+.board {
+  width: 480px;
+  height: 480px;
+  margin: 100px auto;
+  font-size: 0;
+}
+
+
+.cell {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  border: 1px solid black;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+.cell_dark {
+  background: gray;
+}
+
+.figure {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+  text-align: center;
+  transition: 0.4s;
+}
+
+.figure.active:hover {
+  background: gainsboro;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.art {
+  position: absolute;
+  display: inline-block;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 60px;
+  width: 60px;
+  height: 60px;
+}
