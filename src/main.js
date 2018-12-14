@@ -1,4 +1,4 @@
-const arts = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+const arts = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 class Chess {
   constructor({container}) {
     this.container = container;
