@@ -20,8 +20,8 @@ var Chess = function () {
     this.whiteFigures = [];
     this.blackFigures = [];
     this.boardWrapper = document.createElement('div');
-    this.boardWrapper.classList = 'board-wrapper';
-    this.container.append(this.boardWrapper);
+    this.boardWrapper.className = 'board-wrapper';
+    this.container.appendChild(this.boardWrapper);
   }
 
   _createClass(Chess, [{
@@ -48,8 +48,8 @@ var Chess = function () {
     key: '_renderBoard',
     value: function _renderBoard() {
       var board = document.createElement('div');
-      board.classList = 'board';
-      var widthArr = Array.from(Array(8).keys()).reverse();
+      board.className = 'board';
+      var widthArr = [0, 1, 2, 3, 4, 5, 6, 7].reverse();
       var cellIndex = -1;
       var cells = widthArr.map(function (num) {
         cellIndex += 1;
@@ -61,7 +61,7 @@ var Chess = function () {
       }).join('');
 
       board.innerHTML = cells;
-      this.boardWrapper.append(board);
+      this.boardWrapper.appendChild(board);
     }
   }, {
     key: '_renderLegend',
@@ -90,12 +90,12 @@ var Chess = function () {
           };
           var artNode = document.createElement('div');
           artNode.textContent = direction === 'vertical' ? i + 1 : art;
-          artNode.classList = 'art';
+          artNode.className = 'art';
           var cell = document.querySelector(selector);
           var coords = calcCoords(cell);
           artNode.style.top = coords.top;
           artNode.style.left = coords.left;
-          _this.boardWrapper.append(artNode);
+          _this.boardWrapper.appendChild(artNode);
         });
       };
       createArts('vertical', 'left');
@@ -126,8 +126,8 @@ var Chess = function () {
           if (i === 8) {
             horStep = 0;
           }
-          fig.append(el);
-          fig.classList = 'figure figure_' + type + ' active';
+          fig.textContent = el;
+          fig.className = 'figure figure_' + type + ' active';
           if (type === 'black') {
             fig.style.top = _this2.figPoses.white.top - 40 - 60 * vertStep + 'px';
             fig.style.left = _this2.figPoses.white.left + horStep * 60 + 'px';
@@ -136,7 +136,7 @@ var Chess = function () {
             fig.style.left = _this2.figPoses.black.left + horStep * 60 + 'px';
           }
           horStep += 1;
-          _this2.boardWrapper.append(fig);
+          _this2.boardWrapper.appendChild(fig);
           return fig;
         });
       };
@@ -165,12 +165,15 @@ var Chess = function () {
 
       this.container.addEventListener('click', function (e) {
         var target = e.target;
-        if (target.classList.contains('figure')) {
+        if (~target.className.indexOf("figure")) {
           var attr = target.getAttribute('data-pos');
           var cell = document.querySelector('.cell[data-pos=\'' + attr + '\']');
+          console.log(target);
+          console.log(cell);
+
           target.style.left = _this3._getCoords(cell).left + 'px';
           target.style.top = _this3._getCoords(cell).top + 'px';
-          target.classList.remove("active");
+          // target.className = 'figure';
         }
       });
     }

@@ -9,8 +9,8 @@ class Chess {
     this.whiteFigures = [];
     this.blackFigures = [];
     this.boardWrapper = document.createElement('div');
-    this.boardWrapper.classList = 'board-wrapper';
-    this.container.append( this.boardWrapper)
+    this.boardWrapper.className = 'board-wrapper';
+    this.container.appendChild(this.boardWrapper);
   }
 
   render() {
@@ -33,8 +33,8 @@ class Chess {
 
   _renderBoard() {
     const board = document.createElement('div');
-    board.classList = 'board'
-    const widthArr = Array.from(Array(8).keys()).reverse();
+    board.className = 'board'
+    const widthArr = [0, 1, 2, 3, 4, 5, 6, 7].reverse();
     let cellIndex = -1;
     const cells = widthArr
       .map(num => {
@@ -47,7 +47,7 @@ class Chess {
       .join('');
 
       board.innerHTML = cells;
-      this.boardWrapper.append(board);
+      this.boardWrapper.appendChild(board);
   }
 
   _renderLegend() {
@@ -73,12 +73,12 @@ class Chess {
         };
         const artNode = document.createElement('div');
         artNode.textContent = direction === 'vertical' ? i + 1 : art;
-        artNode.classList = 'art';
+        artNode.className = 'art';
         const cell = document.querySelector(selector);
         const coords = calcCoords(cell);
         artNode.style.top = coords.top;
         artNode.style.left = coords.left;
-        this.boardWrapper.append(artNode);
+        this.boardWrapper.appendChild(artNode);
       })
     }
     createArts('vertical', 'left');
@@ -106,8 +106,8 @@ class Chess {
         if (i === 8) {
           horStep = 0;
         }
-        fig.append(el);
-        fig.classList = `figure figure_${type} active`;
+        fig.textContent = el;
+        fig.className  = `figure figure_${type} active`;
         if (type === 'black') {
           fig.style.top = this.figPoses.white.top - 40 - 60 * vertStep  + 'px';
           fig.style.left = this.figPoses.white.left + (horStep * 60) + 'px';
@@ -116,7 +116,7 @@ class Chess {
           fig.style.left = this.figPoses.black.left + (horStep * 60) + 'px';
         }
         horStep += 1;
-        this.boardWrapper.append(fig);
+        this.boardWrapper.appendChild(fig);
         return fig;
       })
     }
@@ -141,12 +141,12 @@ class Chess {
   _addHandlers() {
     this.container.addEventListener('click', (e) => {
       const target = e.target;
-      if (target.classList.contains('figure')) {
+      if (~target.className.indexOf("figure")) {
         const attr = target.getAttribute('data-pos');
         const cell = document.querySelector(`.cell[data-pos='${attr}']`);
         target.style.left = this._getCoords(cell).left + 'px';
         target.style.top = this._getCoords(cell).top + 'px';
-        target.classList.remove("active");
+        // target.className = 'figure';
       }
     })
   }
